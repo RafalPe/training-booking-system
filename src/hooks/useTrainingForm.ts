@@ -23,20 +23,52 @@ export const useTrainingForm = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const updateField = <K extends keyof FormData>(field: K, value: FormData[K]) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [touched, setTouched] = useState<Partial<Record<keyof FormData, boolean>>>({});
+
+  const validate = (data: FormData): Partial<Record<keyof FormData, string>> => {
+    const newErrors: Partial<Record<keyof FormData, string>> = {};
+
+    if (!data.firstName) newErrors.firstName = 'First name is required';
+    if (!data.lastName) newErrors.lastName = 'Last name is required';
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!data.email) {
+      newErrors.email = 'Email is required';
+    } else if (!emailRegex.test(data.email)) {
+      newErrors.email = 'Please use correct formatting. Example: address@email.com';
+    }
+
+    if (!data.age) newErrors.age = 'Age is required';
+
+    if (!data.date) newErrors.date = 'Date is required';
+    if (!data.time) newErrors.time = 'Time is required';
+    if (!data.file) newErrors.file = 'File is required';
+
+    return newErrors;
   };
 
-  const isFormValid = !!(
-    formData.firstName &&
-    formData.lastName &&
-    formData.email &&
-    formData.date &&
-    formData.time &&
-    formData.file
-  );
+  const updateField = <K extends keyof FormData>(field: K, value: FormData[K]) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+
+    if (touched[field]) {
+      const newData = { ...formData, [field]: value };
+      const currentErrors = validate(newData);
+      setErrors((prev) => ({ ...prev, [field]: currentErrors[field] }));
+    }
+  };
+
+  const handleBlur = (field: keyof FormData) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    const currentErrors = validate(formData);
+    setErrors((prev) => ({ ...prev, [field]: currentErrors[field] }));
+  };
+
+  const currentErrorsResult = validate(formData);
+  const isFormValid = Object.keys(currentErrorsResult).length === 0;
 
   const submitApplication = async () => {
+    if (!isFormValid) return false;
     setIsSubmitting(true);
     const data = new FormData();
     data.append('firstName', formData.firstName);
@@ -61,5 +93,13 @@ export const useTrainingForm = () => {
     }
   };
 
-  return { formData, updateField, isFormValid, submitApplication, isSubmitting };
+  return {
+    formData,
+    updateField,
+    isFormValid,
+    submitApplication,
+    isSubmitting,
+    errors,
+    handleBlur,
+  };
 };

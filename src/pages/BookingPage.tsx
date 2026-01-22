@@ -6,18 +6,29 @@ import Calendar from '../components/Calendar';
 import { useTrainingForm } from '../hooks/useTrainingForm';
 import { format, parseISO } from 'date-fns';
 import TimeSlot from '../components/TimeSlot';
+import { useToast } from '../context/ToastContext';
 
 const AVAILABLE_TIMES = ['12:00', '14:00', '16:30', '18:30', '20:00'];
 
 export default function BookingPage() {
-  const { formData, updateField, submitApplication, isSubmitting } = useTrainingForm();
+  const {
+    formData,
+    updateField,
+    submitApplication,
+    isSubmitting,
+    errors,
+    handleBlur,
+    isFormValid,
+  } = useTrainingForm();
+
+  const { showToast } = useToast();
 
   const handleSubmit = async () => {
     const success = await submitApplication();
     if (success) {
-      alert('Application sent successfully!');
+      showToast('Application sent successfully!', 'success');
     } else {
-      alert('Failed to send application.');
+      showToast('Failed to send application. Please try again.', 'error');
     }
   };
 
@@ -31,12 +42,18 @@ export default function BookingPage() {
             placeholder="Enter your first name"
             value={formData.firstName}
             onChange={(e) => updateField('firstName', e.target.value)}
+            onBlur={() => handleBlur('firstName')}
+            error={!!errors.firstName}
+            errorMessage={errors.firstName}
           />
           <TextField
             label="Last Name"
             placeholder="Enter your last name"
             value={formData.lastName}
             onChange={(e) => updateField('lastName', e.target.value)}
+            onBlur={() => handleBlur('lastName')}
+            error={!!errors.lastName}
+            errorMessage={errors.lastName}
           />
           <TextField
             label="Email Address"
@@ -44,6 +61,9 @@ export default function BookingPage() {
             type="email"
             value={formData.email}
             onChange={(e) => updateField('email', e.target.value)}
+            onBlur={() => handleBlur('email')}
+            error={!!errors.email}
+            errorMessage={errors.email}
           />
 
           <div className="flex flex-col gap-2">
@@ -90,7 +110,7 @@ export default function BookingPage() {
       </section>
 
       <div className="mt-5 pt-8">
-        <Button onClick={handleSubmit} disabled={isSubmitting}>
+        <Button onClick={handleSubmit} disabled={isSubmitting || !isFormValid}>
           {isSubmitting ? 'Sending...' : 'Send Application'}
         </Button>
       </div>
