@@ -107,11 +107,14 @@ const Calendar: React.FC<CalendarProps> = ({ value, onChange }) => {
           onTransitionEnd={() => {
             if (!isVisible) setObservanceInfo(null);
           }}
-          className={`text-brand-purple rounded-md bg-purple-50 p-3 text-sm font-medium transition-all duration-500 ease-in-out ${
+          className={`flex items-center gap-3 p-1 transition-all duration-500 ease-in-out ${
             isVisible ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'
           }`}
         >
-          It's {observanceInfo}!
+          <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#CBB2FF]">
+            <span className="text-sm font-bold text-white">i</span>
+          </div>
+          <p className="text-sm text-[#0B0B3F]">It is {observanceInfo}.</p>
         </div>
       )}
     </div>
