@@ -1,8 +1,10 @@
+import BookingPage from './pages/BookingPage';
+
 function App() {
   return (
-    <>
-      <p>apka</p>
-    </>
+    <main className="flex min-h-screen justify-center px-4 py-20">
+      <BookingPage />
+    </main>
   );
 }
 
