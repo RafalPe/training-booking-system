@@ -59,7 +59,7 @@ const Calendar: React.FC<CalendarProps> = ({ value, onChange }) => {
         {/* Grid */}
         <div className="grid grid-cols-7 place-items-center gap-x-4 gap-y-1 pl-1">
           {days.map((d) => (
-            <span key={d} className="text-text-dark text-md mb-2 font-medium">
+            <span key={d} className="text-text-dark mb-2 text-sm font-medium">
               {d}
             </span>
           ))}
@@ -87,7 +87,7 @@ const Calendar: React.FC<CalendarProps> = ({ value, onChange }) => {
                 key={dateStr}
                 disabled={isDisabled}
                 onClick={() => handleDateClick(date, isObservance ? holiday.name : undefined)}
-                className={`flex h-8 w-8 -translate-y-[8px] items-center justify-center rounded-full text-lg font-normal transition-all ${
+                className={`text-md flex h-8 w-8 items-center justify-center rounded-full font-normal transition-all ${
                   isSelected ? 'bg-brand-purple text-white shadow-md' : ''
                 } ${
                   isDisabled

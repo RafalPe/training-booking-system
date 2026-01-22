@@ -7,10 +7,22 @@ export const useHolidays = (year: number) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
+
     fetchPolishHolidays()
-      .then(setHolidays)
-      .catch(() => setHolidays([]))
-      .finally(() => setLoading(false));
+      .then((data) => {
+        if (mounted) setHolidays(data);
+      })
+      .catch(() => {
+        if (mounted) setHolidays([]);
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
   }, [year]);
 
   const holidayData = useMemo(() => {
