@@ -76,6 +76,7 @@ export const useTrainingForm = () => {
     data.append('email', formData.email);
     data.append('age', formData.age.toString());
     if (formData.date) data.append('date', formData.date);
+    if (formData.time) data.append('time', formData.time);
     if (formData.file) data.append('file', formData.file);
 
     try {
