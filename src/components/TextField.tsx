@@ -25,14 +25,14 @@ const TextField: React.FC<TextFieldProps> = ({
       <label className="font-medium text-gray-600">{label}</label>
       <input className={`${baseInputStyles} ${stateStyles}`} {...props} />
       {error && errorMessage && (
-        <div className="text-text-dark mt-2 flex items-start gap-2 text-sm">
+        <div className="text-text-dark mt-2 flex items-center gap-2 text-sm">
           <svg
             width="20"
             height="20"
             viewBox="0 0 20 20"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="mt-0.5 shrink-0"
+            className="shrink-0"
           >
             <circle cx="10" cy="10" r="10" fill="#EF4444" />
             <path

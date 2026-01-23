@@ -70,7 +70,7 @@ export default function BookingPage() {
 
           <div className="mt-9 flex flex-col">
             <label className="text-md font-medium text-gray-600">Photo</label>
-            <FileUpload onChange={(file) => updateField('file', file)} />
+            <FileUpload value={formData.file} onChange={(file) => updateField('file', file)} />
           </div>
         </div>
       </section>
@@ -106,7 +106,7 @@ export default function BookingPage() {
         </div>
       </section>
 
-      <div className="mt-5 pt-[13px] md:pt-8">
+      <div className="mt-5 pt-[10px] md:pt-8">
         <Button onClick={handleSubmit} disabled={isSubmitting || !isFormValid}>
           {isSubmitting ? 'Sending...' : 'Send Application'}
         </Button>
