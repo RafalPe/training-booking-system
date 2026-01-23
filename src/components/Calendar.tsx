@@ -30,9 +30,8 @@ const Calendar: React.FC<CalendarProps> = ({ value, onChange }) => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="max-h-[290px] w-full max-w-[325px] overflow-hidden rounded-lg border border-gray-100 bg-white p-6 shadow-sm">
-        {/* Header */}
-        <div className="mb-4 flex items-center justify-between">
+      <div className="w-full max-w-[345px] overflow-hidden rounded-lg border border-gray-100 bg-white px-6 pt-[30px] pb-[20px] shadow-sm md:max-w-[325px] md:px-6 md:pt-6 md:pb-3">
+        <div className="mb-4 flex items-center justify-between md:mb-2">
           <button
             onClick={handlePrevMonth}
             disabled={isPrevDisabled}
@@ -40,7 +39,7 @@ const Calendar: React.FC<CalendarProps> = ({ value, onChange }) => {
               isPrevDisabled ? 'cursor-not-allowed opacity-30' : ''
             }`}
           >
-            <div className="group-hover:border-r-brand-purple h-0 w-0 border-y-[6px] border-r-[8px] border-y-transparent border-r-purple-300 transition-colors" />
+            <div className="group-hover:border-r-brand-purple h-0 w-0 border-y-[8px] border-r-[10px] border-y-transparent border-r-purple-300 transition-colors" />
           </button>
           <h3 className="text-text-dark text-md font-medium tracking-tight">
             {format(currentMonth, 'MMMM yyyy')}
@@ -52,11 +51,10 @@ const Calendar: React.FC<CalendarProps> = ({ value, onChange }) => {
               isNextDisabled ? 'cursor-not-allowed opacity-30' : ''
             }`}
           >
-            <div className="group-hover:border-l-brand-purple h-0 w-0 border-y-[6px] border-l-[8px] border-y-transparent border-l-purple-300 transition-colors" />
+            <div className="group-hover:border-l-brand-purple h-0 w-0 border-y-[8px] border-l-[10px] border-y-transparent border-l-purple-300 transition-colors" />
           </button>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-7 place-items-center gap-x-4 gap-y-1 pl-1">
           {days.map((d) => (
             <span key={d} className="text-text-dark mb-2 text-sm font-medium">
@@ -72,7 +70,7 @@ const Calendar: React.FC<CalendarProps> = ({ value, onChange }) => {
             const dateStr = format(date, 'yyyy-MM-dd');
             const holiday = holidayData[dateStr];
 
-            const dayOfWeek = getDay(date); // 0=Sun, 6=Sat
+            const dayOfWeek = getDay(date);
             const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
             const isSunday = dayOfWeek === 0;
             const isNationalHoliday = holiday?.type === 'NATIONAL_HOLIDAY';

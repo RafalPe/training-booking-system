@@ -1,5 +1,5 @@
 import BookingPage from './pages/BookingPage';
-import { ToastProvider } from './components/ToastProvider';
+import { ToastProvider } from './context/ToastContext';
 
 function App() {
   return (
