@@ -17,7 +17,7 @@ const TextField: React.FC<TextFieldProps> = ({
     'w-full px-3 py-2 pb-3 h-12 border rounded-md outline-none transition-colors text-gray-700 bg-white placeholder-gray-400';
 
   const stateStyles = error
-    ? 'border-red-500 focus:ring-1 focus:ring-red-500 bg-red-50'
+    ? 'border-error focus:ring-1 focus:ring-error bg-error/5'
     : 'border-gray-300 focus:border-purple-600 focus:ring-1 focus:ring-purple-600';
 
   return (
@@ -25,7 +25,7 @@ const TextField: React.FC<TextFieldProps> = ({
       <label className="font-medium text-gray-600">{label}</label>
       <input className={`${baseInputStyles} ${stateStyles}`} {...props} />
       {error && errorMessage && (
-        <div className="text-text-dark mt-2 flex items-center gap-2 text-sm">
+        <div className="text-error mt-2 flex items-center gap-2 text-sm">
           <svg
             width="20"
             height="20"
@@ -34,7 +34,7 @@ const TextField: React.FC<TextFieldProps> = ({
             xmlns="http://www.w3.org/2000/svg"
             className="shrink-0"
           >
-            <circle cx="10" cy="10" r="10" fill="#EF4444" />
+            <circle cx="10" cy="10" r="10" fill="var(--color-error)" />
             <path
               d="M10 5V11"
               stroke="white"

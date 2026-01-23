@@ -90,7 +90,7 @@ const Calendar: React.FC<CalendarProps> = ({ value, onChange }) => {
                 } ${
                   isDisabled
                     ? 'cursor-not-allowed text-gray-200'
-                    : 'text-text-dark hover:bg-purple-50'
+                    : 'text-text-dark hover:bg-brand-purple/10'
                 } ${!isSelected && isWeekend && !isDisabled ? 'text-gray-300' : ''} `}
               >
                 {format(date, 'd')}
